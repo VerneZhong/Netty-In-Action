@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>echo-client</artifactId>
-    <description>Echo Netty Client</description>
-
+    <artifactId>communication-transmission</artifactId>
+    <description>Netty 通信传输示例</description>
 
 </project>

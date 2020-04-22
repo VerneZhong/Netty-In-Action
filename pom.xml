@@ -12,6 +12,7 @@
     <modules>
         <module>echo-server</module>
         <module>echo-client</module>
+        <module>communication-transmission</module>
     </modules>
 
     <properties>
