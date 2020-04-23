@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * 基于Netty的NIO 异步服务端
  *
- * @author
+ * @author Mr.z
  * @date 2020-04-22
  **/
 public class NettyNioServer {
@@ -53,7 +53,7 @@ public class NettyNioServer {
             // 监听关闭连接
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             try {
                 // 释放所有的资源
