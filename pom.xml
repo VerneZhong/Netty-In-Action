@@ -13,6 +13,7 @@
         <module>echo-server</module>
         <module>echo-client</module>
         <module>communication-transmission</module>
+        <module>netty-data-container</module>
     </modules>
 
     <properties>
