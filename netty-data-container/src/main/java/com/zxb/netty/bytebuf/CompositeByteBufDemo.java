@@ -13,7 +13,8 @@ import io.netty.buffer.Unpooled;
 public class CompositeByteBufDemo {
 
     /**
-     * 使用 CompositeByteBuf
+     * 使用 {@link CompositeByteBuf} 的复合缓冲区模式，{@link CompositeByteBuf} 可能不支持访问其支撑数组，
+     * 因此访问 {@link CompositeByteBuf} 中的数据类似于访问直接缓冲区的模式
      */
     public void userCompositeByteBuf() {
 
@@ -37,7 +38,7 @@ public class CompositeByteBufDemo {
     }
 
     /**
-     * 访问 CompositeByteBuf 中的数据
+     * 访问 {@link CompositeByteBuf} 中的数据
      */
     public void accessCompositeByteBufData() {
         CompositeByteBuf byteBuf = Unpooled.compositeBuffer();
@@ -47,7 +48,7 @@ public class CompositeByteBufDemo {
         // 分配一个具有可读字节数组长度的新数组
         byte[] array = new byte[length];
 
-        // 将字节读到该数组中
+        // 将字节数据读取到该数组中
         byteBuf.getBytes(byteBuf.readerIndex(), array);
 
         // 使用偏移量和长度作为参数使用该数组
