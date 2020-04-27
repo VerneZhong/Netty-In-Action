@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * {@link ByteBufHolder} 接口：当我们需要存储各种属性值的时候该接口提供了缓冲区池化、其中可以从池中借用 {@link ByteBuf} ，
- * 并且子需要时自动释放等高级特性的支持
+ * 并且在需要时自动释放等高级特性的支持
  * <ul>
  *     <li>{@link ByteBufHolder#content()}：返回该 {@link ByteBufHolder} 所持有的 {@link ByteBuf} </li>
  *     <li>{@link ByteBufHolder#copy()}：返回该 {@link ByteBufHolder} 的一个深拷贝，包括一个其所包含的 {@link ByteBuf} 的非共享副本</li>
