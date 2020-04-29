@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>netty-data-container</artifactId>
+    <artifactId>netty-core-action</artifactId>
     <description>Netty的数据容器ByteBuf</description>
 
 
