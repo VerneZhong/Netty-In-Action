@@ -18,6 +18,7 @@
 
     <properties>
         <netty-version>4.1.48.Final</netty-version>
+        <junit-version>4.13</junit-version>
     </properties>
 
     <dependencies>
@@ -28,6 +29,16 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+       <dependencies>
+           <dependency>
+               <groupId>junit</groupId>
+               <artifactId>junit</artifactId>
+               <version>${junit-version}</version>
+           </dependency>
+       </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
