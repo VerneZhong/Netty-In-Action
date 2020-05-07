@@ -14,12 +14,13 @@ import java.nio.charset.StandardCharsets;
 /**
  * {@link ServerBootstrap} 多个 {@link EventLoopGroup} 的服务端引导。
  * <p>
- *     当服务器处理一个客户端的请求，该请求需要它充当第三方系统的客户端。当一个应用程序必须要和组织现有的系统集成时，
- *     就可能会发生这种情况。这种情况下，将需要从已经被接受的子 {@link Channel} 中引导一个客户端 {@link Channel}。
- *     解决方案：通过将已被接受的子 {@link Channel} 的 {@link EventLoop} 传递给 {@link Bootstrap} 的 {@link Bootstrap#group(EventLoopGroup)}
- *     方法来共享该 {@link EventLoop}。因为分配给 {@link EventLoop} 的所有 {@link Channel} 都使用同一个线程，所以
- *     避免来额外的线程创建，避免上下午切换带来的性能问题。
+ * 当服务器处理一个客户端的请求，该请求需要它充当第三方系统的客户端。当一个应用程序必须要和组织现有的系统集成时，
+ * 就可能会发生这种情况。这种情况下，将需要从已经被接受的子 {@link Channel} 中引导一个客户端 {@link Channel}。
+ * 解决方案：通过将已被接受的子 {@link Channel} 的 {@link EventLoop} 传递给 {@link Bootstrap} 的 {@link Bootstrap#group(EventLoopGroup)}
+ * 方法来共享该 {@link EventLoop}。因为分配给 {@link EventLoop} 的所有 {@link Channel} 都使用同一个线程，所以
+ * 避免来额外的线程创建，避免上下午切换带来的性能问题。
  * </p>
+ *
  * @author Mr.zxb
  * @date 2020-05-06
  **/
@@ -43,7 +44,7 @@ public class MultiEventLoopGroupServerBootstrapDemo {
 
                     @Override
                     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-                        channelFuture = childChannelConnection(ctx);
+                        channelFuture = childChannelConnection(ctx.channel().eventLoop());
 
                         channelFuture.addListener((ChannelFutureListener) future -> {
                             if (channelFuture.isSuccess()) {
@@ -56,12 +57,19 @@ public class MultiEventLoopGroupServerBootstrapDemo {
                         });
                     }
 
-                    private ChannelFuture childChannelConnection(ChannelHandlerContext ctx) {
+                    /**
+                     * 子 Channel 连接远程节点
+                     * @param eventLoop
+                     * @return
+                     */
+                    private ChannelFuture childChannelConnection(EventLoop eventLoop) {
                         // 创建 Bootstrap类的实例以连接远程主机
                         Bootstrap bootstrap = new Bootstrap();
 
-                        // 指定 Channel 的实现
-                        bootstrap.channel(NioSocketChannel.class)
+                        // 使用与分配给已被接受的子 Channel 相同的 EventLoop
+                        bootstrap.group(eventLoop)
+                                // 指定 Channel 的实现
+                                .channel(NioSocketChannel.class)
                                 // 为入站的 I/O 设置 ChannelInboundHandler
                                 .handler(new SimpleChannelInboundHandler<ByteBuf>() {
                                     @Override
@@ -69,10 +77,6 @@ public class MultiEventLoopGroupServerBootstrapDemo {
                                         System.out.println("Received data.");
                                     }
                                 });
-
-                        // 使用与分配给已被接受的子 Channel 相同的 EventLoop
-                        bootstrap.group(ctx.channel().eventLoop());
-
                         // 连接到远程节点
                         return bootstrap.connect(new InetSocketAddress("www.baidu.com", 80));
                     }
