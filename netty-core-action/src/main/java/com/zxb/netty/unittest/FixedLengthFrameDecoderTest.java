@@ -1,5 +1,6 @@
 package com.zxb.netty.unittest;
 
+import com.zxb.netty.codec.CustomFixedLengthFrameDecoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.embedded.EmbeddedChannel;
@@ -8,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * 测试 {@link CustomFixedLengthFrameDecoder}
+ * 测试 {@link CustomFixedLengthFrameDecoder}，测试入站消息
  * @author Mr.zxb
  * @date 2020-05-07 22:06:30
  */
