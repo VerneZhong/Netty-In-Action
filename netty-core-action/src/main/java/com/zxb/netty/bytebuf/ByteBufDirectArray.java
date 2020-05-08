@@ -3,8 +3,10 @@ package com.zxb.netty.bytebuf;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
+import java.nio.ByteBuffer;
+
 /**
- * ByteBuf直接缓冲区，是 {@link ByteBuf} 的另一种模式。在Java NIO中的 {@link java.nio.ByteBuffer} 类允许JVM实现通过本地调用来分配内存。
+ * ByteBuf直接缓冲区，是 {@link ByteBuf} 的另一种模式。在Java NIO中的 {@link ByteBuffer} 类允许JVM实现通过本地调用来分配内存。
  * 这主要是为了避免在每次调用本地I/O操作之前或之后将缓冲区的内容复制到一个中间缓冲区。
  * 直接缓冲区的内容将驻留在常规的会被垃圾回收的堆之外。
  * 直接缓冲区的缺点：相对于基于堆的缓冲区，分配和释放比较昂贵
