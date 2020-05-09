@@ -28,8 +28,8 @@ public class FrameChunkDecoder extends ByteToMessageDecoder {
         int readableBytes = in.readableBytes();
 
         // 如果该帧太大，则丢弃它并抛出一个 TooLongFrameException
-        if (readableBytes >= maxFrameSize) {
-            
+        if (readableBytes > maxFrameSize) {
+
             // discard the bytes
             in.clear();
             throw new TooLongFrameException();
