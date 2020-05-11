@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class FrameChunkDecoderTest {
 
     @Test
-    public void testFrameDecoded() {
+    public void     testFrameDecoded() {
         // 创建 ByteBuf，写入9个字节的数据
         ByteBuf buffer = Unpooled.buffer();
         for (int i = 0; i < 9; i++) {
