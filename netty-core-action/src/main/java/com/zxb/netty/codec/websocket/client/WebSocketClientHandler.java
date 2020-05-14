@@ -6,12 +6,20 @@ import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 
 /**
+ * WebSocket Client 的 {@link ChannelHandler}
  * @author Mr.zxb
  * @date 2020-05-13
  **/
 public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> {
 
+    /**
+     * 客户端握手
+     */
     private final WebSocketClientHandshaker handshake;
+
+    /**
+     * 握手异步通知
+     */
     private ChannelPromise handshakeFuture;
 
     public WebSocketClientHandler(WebSocketClientHandshaker handshake) {
@@ -29,23 +37,30 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        // 开始握手
         handshake.handshake(ctx.channel());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        // 客户端关闭连接
         System.out.println("WebSocket Client disconnected!");
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
         Channel ch = ctx.channel();
+        // 判断握手是否已经完成
         if (!handshake.isHandshakeComplete()) {
             try {
+                // 完成握手
                 handshake.finishHandshake(ch, (FullHttpResponse) msg);
                 System.out.println("WebSocket Client connected!");
+
+                // 通知握手成功
                 handshakeFuture.setSuccess();
             } catch (WebSocketHandshakeException e) {
+                // 与服务端握手失败
                 System.out.println("WebSocket Client failed to connect");
                 handshakeFuture.setFailure(e);
             }

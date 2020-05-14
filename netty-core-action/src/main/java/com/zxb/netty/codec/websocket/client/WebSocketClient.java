@@ -33,6 +33,7 @@ public class WebSocketClient {
     private static final String URL = System.getProperty("url", "ws://127.0.0.1:8080/websocket");
 
     public static void main(String[] args) throws Exception {
+        // Server uri
         URI uri = new URI(URL);
         String scheme = uri.getScheme() == null ? "ws" : uri.getScheme();
         String host = uri.getHost() == null ? "127.0.0.1" : uri.getHost();
@@ -54,6 +55,7 @@ public class WebSocketClient {
             return;
         }
 
+        // ssl
         final boolean ssl = "wss".equalsIgnoreCase(scheme);
         final SslContext sslContext;
         if (ssl) {
