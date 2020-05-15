@@ -12,10 +12,4 @@
     <artifactId>netty-core-action</artifactId>
     <description>Netty的数据容器ByteBuf</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-    </dependencies>
 </project>
