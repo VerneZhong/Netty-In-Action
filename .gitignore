@@ -5,8 +5,3 @@ target/*
 
 */*.iml
 */target/*
-.DS_Store
-echo-server/src/main/java/com/zxb/netty/echo/.DS_Store
-netty-core-action/src/main/java/com/zxb/netty/.DS_Store
-netty-core-action/src/main/java/com/zxb/netty/channelhandler/.DS_Store
-netty-core-action/src/main/java/com/zxb/netty/codec/serialization/protobuf/
