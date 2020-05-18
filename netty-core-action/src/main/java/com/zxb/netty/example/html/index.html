@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Test</title>
+</head>
+<script>
+    var webSocket = new WebSocket('ws://localhost:9999');
+    webSocket.onmessage = function(data) { console.log(data); }
+</script>
+<body>
+        <label>Enter a message below to send</label>
+        <input type="text" id="data" value="hello websocket"/>
+        <input type="button" value="send" />
+</body>
+</html>
