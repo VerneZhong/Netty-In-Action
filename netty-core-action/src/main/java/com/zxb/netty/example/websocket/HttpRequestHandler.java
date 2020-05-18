@@ -24,12 +24,12 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     static {
         try {
-//            URL location = HttpRequestHandler.class.getProtectionDomain()
-//                    .getCodeSource().getLocation();
-//            String path = location.toURI() + "index.html";
-            String path = "/Users/zhongxuebin/IdeaProjects/Netty-In-Action/netty-core-action/src/main/java/com/zxb/netty/example/html/index.html";
+            URL location = HttpRequestHandler.class.getProtectionDomain()
+                    .getCodeSource().getLocation();
+            String path = location.toURI() + "html/index.html";
+//            String path = "/Users/zhongxuebin/IdeaProjects/Netty-In-Action/netty-core-action/src/main/java/com/zxb/netty/example/html/index.html";
             // 去掉 file: 前缀
-//            path = !path.contains("file:") ? path : path.substring(5);
+            path = !path.contains("file:") ? path : path.substring(5);
             INDEX = new File(path);
         } catch (Exception e) {
             throw new IllegalStateException("Unable to locate index.html", e);

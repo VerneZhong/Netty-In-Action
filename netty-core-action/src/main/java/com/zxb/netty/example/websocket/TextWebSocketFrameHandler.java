@@ -1,10 +1,13 @@
 package com.zxb.netty.example.websocket;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import io.netty.util.AttributeKey;
 
 /**
  * 扩展 {@link SimpleChannelInboundHandler} 处理 WebSocket {@link TextWebSocketFrame} 文本帧
@@ -28,14 +31,17 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) throws Exception {
-        if (evt == WebSocketServerProtocolHandler.ServerHandshakeStateEvent.HANDSHAKE_COMPLETE) {
-//        if (evt instanceof WebSocketServerProtocolHandler.HandshakeComplete) {
+        if (evt instanceof WebSocketServerProtocolHandler.HandshakeComplete) {
             // 握手成功则移除 HttpRequestHandler，不在处理 Http 请求消息
-            ctx.pipeline().remove(HttpRequestHandler.class);
+            ChannelPipeline pipeline = ctx.pipeline();
+            if (pipeline.get(HttpRequestHandler.class) != null) {
+                pipeline.remove(HttpRequestHandler.class);
+            }
             // 通知所有已连接的 WebSocket 客户端新的客户端已经连接上了
-            channelGroup.writeAndFlush(new TextWebSocketFrame("Client " + ctx.channel() + "joined!"));
+            Channel channel = ctx.channel();
+            channelGroup.writeAndFlush(new TextWebSocketFrame("Client： " + channel + "已连接!"));
             // 将新的 WebSocket Channel 添加到 ChannelGroup 中，以便它可以接收到所有的消息
-            channelGroup.add(ctx.channel());
+            channelGroup.add(channel);
         } else {
             super.userEventTriggered(ctx, evt);
         }
@@ -44,6 +50,6 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
         // 增加消息的引用计数，防止被释放掉引用，并将它写到 ChannelGroup 中所有已经连接的客户端
-        channelGroup.writeAndFlush(msg.retain());
+        channelGroup.writeAndFlush(new TextWebSocketFrame(ctx.channel() + ":" + msg.text()));
     }
 }

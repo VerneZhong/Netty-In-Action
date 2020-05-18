@@ -23,7 +23,7 @@ public class ChatServer {
 
     private Channel channel;
 
-    private final int port = 9999;
+    private final int port = 8080;
 
     /**
      * Server 启动入口
@@ -35,7 +35,7 @@ public class ChatServer {
                 .channel(NioServerSocketChannel.class)
                 .childHandler(createChannelInitializer(channelGroup))
                 .bind(new InetSocketAddress(port)).syncUninterruptibly();
-        System.out.println("Chat Server started.");
+        System.out.println("Chat Server started. http://localhost:" + port);
         channel = channelFuture.channel();
         return channelFuture;
     }
@@ -60,7 +60,7 @@ public class ChatServer {
         group.shutdownGracefully();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         ChatServer chatServer = new ChatServer();
         ChannelFuture channelFuture = chatServer.start();
 
