@@ -1,7 +1,6 @@
 package com.zxb.netty.example.udp.monitor;
 
 import com.zxb.netty.example.udp.codec.LogEventDecoder;
-import com.zxb.netty.example.udp.codec.LogEventEncoder;
 import com.zxb.netty.example.udp.handler.LogEventHandler;
 import com.zxb.netty.example.udp.pojo.LogEvent;
 import io.netty.bootstrap.Bootstrap;
