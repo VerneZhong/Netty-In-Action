@@ -23,7 +23,7 @@ public class LogEventBroadcaster {
     private final EventLoopGroup group;
     private final Bootstrap bootstrap;
     private final File file;
-    private final int port = 8080;
+    private final int port = 9999;
     private final String host = "255.255.255.255";
 
     public LogEventBroadcaster(File file) {
@@ -37,6 +37,7 @@ public class LogEventBroadcaster {
 
     public void run() throws Exception {
         Channel channel = bootstrap.bind(0).sync().channel();
+        System.out.println("LogEventBroadcaster running...");
         long pointer = 0;
         for (; ; ) {
             long len = file.length();
@@ -63,7 +64,7 @@ public class LogEventBroadcaster {
 
     public static void main(String[] args) {
         // log 文件路径
-        File file = new File("");
+        File file = new File("/Users/zhongxuebin/log/sengled/life2-2020-05-18.log");
         LogEventBroadcaster logEventBroadcaster = new LogEventBroadcaster(file);
 
         try {
