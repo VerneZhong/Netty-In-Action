@@ -7,6 +7,7 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * 初始化 {@link ChannelInitializer}
@@ -29,10 +30,14 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
                 .addLast(new HttpServerCodec())
                 // 聚合 Http 请求和响应
                 .addLast(new HttpObjectAggregator(64 * 1024))
+                // 处理心跳机制
+                .addLast(new IdleStateHandler(0, 0, 60))
                 // 处理 WebSocket 握手、Ping、Pong和Close等任务
                 .addLast(new WebSocketServerProtocolHandler("/ws"))
                 // 处理 FullHttpRequest
                 .addLast(new WebSocketIndexPageHandler("/ws"))
+                // 处理心跳事件
+                .addLast(new HeartbeatHandler(group))
                 // 处理 WebSocket 文本帧和握手完成事件
                 .addLast(new TextWebSocketFrameHandler(group));
     }
