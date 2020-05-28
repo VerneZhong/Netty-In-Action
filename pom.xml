@@ -15,6 +15,7 @@
         <module>communication-transmission</module>
         <module>netty-core-action</module>
         <module>netty-rpc</module>
+        <module>netty-tomcat</module>
     </modules>
 
     <properties>
