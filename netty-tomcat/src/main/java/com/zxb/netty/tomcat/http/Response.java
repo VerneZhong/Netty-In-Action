@@ -6,7 +6,7 @@ import io.netty.handler.codec.http.*;
 import io.netty.util.CharsetUtil;
 
 /**
- * class
+ * Http Response
  *
  * @author Mr.zxb
  * @date 2020-05-29 14:09

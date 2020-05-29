@@ -8,14 +8,13 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * class
+ * Tomcat 服务引导
  *
  * @author Mr.zxb
  * @date 2020-05-29 14:07
