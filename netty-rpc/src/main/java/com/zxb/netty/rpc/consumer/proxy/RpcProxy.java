@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
+ * RPC Proxy 代理类，反射生成实现，并连接到
  * @author Mr.zxb
  * @date 2020-05-28 21:27:50
  */
@@ -89,17 +90,19 @@ public class RpcProxy {
                                  lengthAdjustment：要添加到长度字段值的补偿值
                                  initialBytesToStrip：从解码帧中去除的第一个字节数
                                  */
-                                pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+                                pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,
+                                        0, 4, 0, 4));
                                 //自定义协议编码器
                                 pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
                                 //对象参数类型编码器
                                 pipeline.addLast("encoder", new ObjectEncoder());
                                 //对象参数类型解码器
-                                pipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+                                pipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE,
+                                        ClassResolvers.cacheDisabled(null)));
                                 pipeline.addLast("handler", consumerHandler);
                             }
                         });
-                ChannelFuture future = bootstrap.connect("localhost", 8080).sync();
+                ChannelFuture future = bootstrap.connect("127.0.0.1", 8080).sync();
                 future.channel().writeAndFlush(msg).sync();
                 future.channel().closeFuture().sync();
             } catch (InterruptedException e) {

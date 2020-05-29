@@ -24,6 +24,7 @@
         <jboss.marshalling.version>2.0.9.Final</jboss.marshalling.version>
         <protobuf.version>3.11.4</protobuf.version>
         <lombok.version>1.18.12</lombok.version>
+        <msgpack.version>0.6.12</msgpack.version>
     </properties>
 
     <dependencies>
@@ -49,6 +50,12 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.msgpack</groupId>
+            <artifactId>msgpack</artifactId>
+            <version>${msgpack.version}</version>
         </dependency>
 
         <dependency>
