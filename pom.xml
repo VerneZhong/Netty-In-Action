@@ -20,7 +20,7 @@
 
     <properties>
         <netty-version>4.1.50.Final</netty-version>
-        <junit-version>4.13</junit-version>
+        <junit-version>4.13.1</junit-version>
         <jboss.marshalling.version>2.0.9.Final</jboss.marshalling.version>
         <protobuf.version>3.11.4</protobuf.version>
         <lombok.version>1.18.12</lombok.version>
